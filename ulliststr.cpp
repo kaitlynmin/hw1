@@ -74,46 +74,76 @@ void ULListStr::push_back(const std::string& val){
 }
 
 void ULListStr::pop_back() {
-    if (this->empty()) {
-      return;
-    } else if (tail_->last == 0) {
-      Item* temp = tail_;
-      tail_ = tail_->prev;
-
-      if (tail_) {
-        tail_->next = nullptr;
+  if (this->empty()) {
+    return;
+  } else if (tail_->last == 1) {
+      if (head_ == tail_) {
+          delete tail_;
+          head_ = tail_ = nullptr;
       } else {
-        head_=nullptr;
+        Item* temp = tail_;
+        tail_ = tail_->prev;
+        tail_->next = nullptr;
+        delete temp;
       }
-      if (head_) {
-      delete temp;
-      size_--;
-      }
-    } else {
-      tail_->last--;
-      size_--;
-    }
+  } else {
+    tail_->last--;
+  }
+  size_--;
 }
+
 
 void ULListStr::pop_front() {
   if (this->empty()) {
     return;
-  } 
+  }
   size_--;
-  if (head_->first == ARRSIZE - 1) {
+
+  if (head_->first == ARRSIZE -1) {
     Item* temp = head_;
-    head_ = head_->next;
-    if (head_) {
-      head_->prev = nullptr;
+
+    if (head_ == tail_) {
+        head_ = tail_ = nullptr;
+    } else {
+        head_ = head_->next;
+        head_->prev = nullptr;
     }
-    delete temp;
+    delete temp; 
   } else {
     head_->first++;
-  }
-  if (this->empty()) {
-    tail_ = NULL;
+    if (head_->first == head_->last) {
+      Item* temp = head_;
+      head_ = head_->next;
+
+      if (head_) {
+        head_->prev = nullptr;
+      } else {
+        tail_ = nullptr;
+      }
+      delete temp;
+    } 
   }
 }
+
+  // if (this->empty()) {
+  //   return;
+  // } 
+  // size_--;
+  // Item* temp = head_;
+  
+  // if (head_->first == ARRSIZE - 1) {
+  //   head_ = head_->next;
+    
+  //   if (head_) {
+  //     head_->prev = nullptr;
+  //   } else {
+  //     tail_ = nullptr;
+  //   }
+  //   delete temp;
+  // } else {
+  //   head_->first++;
+  // }
+
 
 std::string const & ULListStr::back() const {
   return tail_->val[tail_->last -1];

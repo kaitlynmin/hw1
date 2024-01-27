@@ -20,8 +20,15 @@ int main(int argc, char* argv[])
     // }
     // std::cout<<std::endl;
 
-    list.push_front("bob");
-    list.pop_back();
+    // list.push_front("bob");
+    // list.pop_back();
+    list.push_back("test");
+      for (size_t i = 0; i < list.size(); ++i) {
+        std::cout << list.get(i) << " ";
+        std::cout << list.size();
+    }
+
+		list.pop_front();
 
     std::cout << "list\n";
     for (size_t i = 0; i < list.size(); ++i) {
@@ -30,4 +37,6 @@ int main(int argc, char* argv[])
     }
     std::cout<<std::endl;
     return 0;
+
+  
 }
